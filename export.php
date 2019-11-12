@@ -43,7 +43,7 @@ $output .= '<?php echo"$c";?>
          <td>RNO</td>  
          <td>EMAILID</td>
          <td>CNAME</td>
-       
+          <td>Attendance</td>
                     </tr>
   ';
 $query="SELECT * FROM allotment where CNAME='$c'";
@@ -79,7 +79,7 @@ else
          <td>RNO</td>  
          <td>EMAILID</td>
          <td>CNAME</td>
-       
+       <td>Attendance</td>
                     </tr>
   ';
   

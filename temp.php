@@ -32,19 +32,18 @@
 		<link rel="stylesheet" href="style.css?version=51">
 		<div class = "row">
 			<div class ="col-md-2">
-				<br>
 				<img src="Somaiya.png" alt="Somaiya" width="250" height="100"/>
 			</div>
 			<div class ="col-md-7 offset-md-0">	
-				<h2 align="right" style='color: white; font-family:"Arial, Helvetica, sans-serif"; font-size: 50px'>K.J. Somaiya College of Engineering</h2>
-				<h4 align="center" style='font-family:"Arial, Helvetica, sans-serif"; font-size: 30px'><font color="white">(Autonomous College affiliated to University of Mumbai)</font></h4>
+				<h2 align="right" style='color: white; font-size: 50px'>K.J. Somaiya College of Engineering</h2>
+				<h4 align="center" style='font-size: 30px'><font color="white">           (Autonomous College affiliated to University of Mumbai)</font></h4>
 			</div>	
 			<div class ="col-md-3">
 				<br>
-				<a href="https://www.facebook.com/SomaiyaTrust/" class="fa fa-facebook"></a>
-				<a href="https://twitter.com/SomaiyaTrust" class="fa fa-twitter"></a>
-				<a href="https://www.youtube.com/SomaiyaVidyavihar" class="fa fa-youtube"></a>
-				<a href="https://www.instagram.com/somaiyatrust/" class="fa fa-instagram"></a>
+				<a href="#" class="fa fa-facebook"></a>
+				<a href="#" class="fa fa-twitter"></a>
+				<a href="#" class="fa fa-youtube"></a>
+				<a href="#" class="fa fa-instagram"></a>
 			</div>
 		</div>
 		<meta charset = "utf-8">
@@ -102,7 +101,7 @@
 	<style>
  
 body{    
-    font-family: "Arial Black", Gadget, sans-serif;
+    font-family: 'Roboto Condensed', sans-serif;
     overflow-x: hidden;
     
 }
@@ -219,12 +218,6 @@ div.sticky {
 	width: 10%;
 }
 
-#particles-js{
-  position: absolute;
-  height:1125px;
-  width:100%;
-  background: #24292e !important;
-}
 		</style>
 	</head>
 	<body>
@@ -234,14 +227,14 @@ div.sticky {
 		<script type="text/javascript" src="app.js"></script>
 	</div>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  	<a class="navbar-brand" href="index.php" style='font-size: 28px'>Audit Course</a>
+  	<a class="navbar-brand" href="#" style='font-size: 28px'>Audit Course</a>
   	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   	</button>
   <div class="navbar-collapse collapse show" id="navbarColor01" style="">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="index.php" style='font-size: 20px'>Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#" style='font-size: 20px'>Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="about.php" style='font-size: 20px'>About</a>
@@ -261,7 +254,7 @@ div.sticky {
 				<li><img src="Tableau.jpg" alt="Img 5" /></li>
 				<li><img src="Flutter.png" alt="Img 6" /></li>
 				<li><img src="Devops.png" alt="Img 7" /></li>
-                <li><img src="No SQL.png" alt="Img 8" /></li>
+                <li><img src="No SQL.png" alt="Img 7" /></li>
 			</ul>
 		</div>
 		
@@ -281,12 +274,12 @@ div.sticky {
   <div class = "container">
     <div class="row">
     	<div class="col-md-6 col-xs-12">
-    		<h1 style='color: white; font-size: 45px; font-family: "Arial Black", Gadget, sans-serif; text-align: center'>Audit Course</h1>
-			<a href="" title="From building websites to analyzing data, the choice is yours"><h3 style='color: white; font-family: "Comic Sans MS", cursive, sans-serif'><b># Choose What To Learn</b></h3></a>
-    		<a href = "" title="No matter your experience level, we will start from scratch"><h3 style='color: white; font-family: "Comic Sans MS", cursive, sans-serif'><b># Learn By Doing</b></h3></a>
-    		<a href="" title="Your work will be testedas soon as you submit it, so you can always know if you are on the right track"><h3 style='color: white; font-family: "Comic Sans MS", cursive, sans-serif'><b># Get Instant Feedback</b></h3></a>
-    		<a href="" title="Apply your learning with real world projects"><h3 style='color: white; font-family: "Comic Sans MS", cursive, sans-serif'><b># Put Your Learning to Practice</b></h3></a>
-    		<a href="" title="Each course has specific capacity and will be alloted on First Come First Serve basis"><h3 style='color: white; font-family: "Comic Sans MS", cursive, sans-serif'><b># Alloted on Space Availability Basis</b></h3></a>
+    		<h1 style='color: white; font-size: 45px; font-family: Verdana, Geneva, sans-serif; text-align: center'>Audit Course</h1>
+			<a href="" title="From building websites to analyzing data, the choice is yours"><h3 style='color: #2a9fd6; font-family: "Comic Sans MS", cursive, sans-serif'><b># Choose What To Learn</b></h3></a>
+    		<a href = "" title="No matter your experience level, we will start from scratch"><h3 style='color: #2a9fd6; font-family: "Comic Sans MS", cursive, sans-serif'><b># Learn By Doing</b></h3></a>
+    		<a href="" title="Your work will be testedas soon as you submit it, so you can always know if you are on the right track"><h3 style='color: #2a9fd6; font-family: "Comic Sans MS", cursive, sans-serif'><b># Get Instant Feedback</b></h3></a>
+    		<a href="" title="Apply your learning with real world projects"><h3 style='color: #2a9fd6; font-family: "Comic Sans MS", cursive, sans-serif'><b># Put Your Learning to Practice</b></h3></a>
+    		<a href="" title="Each course has specific capacity and will be alloted on First Come First Serve basis"><h3 style='color: #2a9fd6; font-family: "Comic Sans MS", cursive, sans-serif'><b># Alloted on Space Availability Basis</b></h3></a>
     	</div>
     	
 
@@ -306,10 +299,10 @@ div.sticky {
 	 				<h3 class="panel-title"><span class="glyphicon glyphicon-circle-arrow-down"></span>  Sign Into Account</h3>
 				</div>
 				<br>
-        		<label id="abc" for="email" style='font-size: 18px'><b>Email ID:</b></label>
+        		<label id="abc" for="email"><b>Email:</b></label>
 				<input type="text" name="email" id="email" class="form-control" placeholder="Enter Email-ID" value="<?php echo isset($_POST['email']) ? $email : ''; ?>" required>			  
-				<br>		
-			    <label id="abc" for="pswrd" style='font-size: 18px'><b>Password:</b></label>
+				<br><br>			
+			    <label id="abc" for="pswrd"><b>Password:</b></label>
 				<input type="password" name="pswrd" id="pswrd" class="form-control" placeholder="Enter Password" value="<?php echo isset($_POST['pswrd']) ? $pswrd : ''; ?>" required>			
 				<br><br>
 				<button type="submit" name="submit" class="btn btn-primary">Submit</button>	

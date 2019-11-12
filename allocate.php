@@ -33,9 +33,17 @@
       {
         $query0="INSERT INTO allotment(FNAME,MNAME,LNAME,RNO,EMAILID,CNAME,CID) VALUES('$fname','$mname','$lname','$rno','$email','$cname','$c_id')";
         if(mysqli_query($conn,$query0))
-        {}
+        {
+          $msgClass = 'alert-success';
+          $_SESSION['message'] = 'Courses Allocated';
+          $_SESSION['messageclass'] ="$msgclass";  
+        }
         else
-        {}
+        {
+          $msgClass = 'alert-danger';
+          $_SESSION['message'] = 'Courses Already Allocated';
+          $_SESSION['messageclass'] ="$msgclass";
+        }
         $query1="UPDATE course SET ALLOTED='$x'+1 WHERE ID='$c_id'";
         if(mysqli_query($conn, $query1))
         {}
@@ -59,9 +67,17 @@
         {
           $query0="INSERT INTO allotment(FNAME,MNAME,LNAME,RNO,EMAILID,CNAME,CID) VALUES('$fname','$mname','$lname','$rno','$email','$cname','$c_id')";
           if(mysqli_query($conn,$query0))
-          {}
+          {
+            $msgClass = 'alert-success';
+            $_SESSION['message'] = 'Courses Allocated';
+            $_SESSION['messageclass'] ="$msgclass";;
+          }
           else
-          {}
+          {          
+            $msgClass = 'alert-danger';
+            $_SESSION['message'] = 'Courses Already Allocated';
+            $_SESSION['messageclass'] ="$msgclass";
+          }
           $query1="UPDATE course SET ALLOTED='$x'+1 WHERE ID='$c_id'";
           if(mysqli_query($conn, $query1))
           {}
@@ -85,9 +101,17 @@
         {
           $query0="INSERT INTO allotment(FNAME,MNAME,LNAME,RNO,EMAILID,CNAME,CID) VALUES('$fname','$mname','$lname','$rno','$email','$cname','$c_id')";
           if(mysqli_query($conn,$query0))
-          {}
+          {
+            $msgClass = 'alert-success';
+            $_SESSION['message'] = 'Courses Allocated';
+            $_SESSION['messageclass'] ="$msgclass";
+          }
           else
-          {}
+          { 
+            $msgClass = 'alert-danger';
+            $_SESSION['message'] = 'Courses Already Allocated';
+            $_SESSION['messageclass'] ="$msgclass";
+          }
           $query1="UPDATE course SET ALLOTED='$x'+1 WHERE ID='$c_id'";
           if(mysqli_query($conn, $query1))
           {}
@@ -99,14 +123,13 @@
         }
     } 
     }
+    header("Location: admin.php");
     $conn->close();
 ?>
-
-
 <!DOCTYPE html>
 <html>
   <head>
-		<title>Course Allotment</title>
+		<title>Admin</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
@@ -155,7 +178,7 @@
              <a href="admin.php" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true" class="active"></span>  Profile <span class="badge"></span></a>
             <a href="add.php" class="list-group-item"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Add Course <span class="badge"></span></a>
             <a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Allocate Course <span class="badge"></span></a>
-            <a href="display.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Display Allocation<span class="badge"></span></a>
+            <a href="displayadmin.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Display Allocation<span class="badge"></span></a>
                   
           </div>
         </div>

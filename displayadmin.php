@@ -1,43 +1,14 @@
 <?php
-
-    $msg = "";
-	$msgClass = "";
-	session_start();
-    $servername = "localhost";
-    $username = "root";
-    $password = "123456";
-    $dbname = "audit_course";
-    $email=$_SESSION["email"];
-$conn = new mysqli($servername, $username, $password, $dbname);
-$msg=$_SESSION['message'];
-if($_SESSION['message']=='Course Added')
-{
-	$msgClass = 'alert-success';
-}
-elseif($_SESSION['message']=='Course Already Exists')
-{
-	$msgClass = 'alert-danger';
-}
-elseif($_SESSION['message']=='Courses Allocated')
-{	
-	$msgClass = 'alert-success';
-}
-elseif ($_SESSION['message']=='Courses Already Allocated') 
-{	
-	$msgClass = 'alert-danger';
-}
-elseif ($_SESSION['message']=='All Allotments Deleted') 
-{	
-	$msgClass = 'alert-danger';
-}
-
-$_SESSION['message'] = null; 
-$conn->close();
+require("database.php");
+mysqli_select_db($conn,"audit_course");
+session_start();
+$email=$_SESSION["email"];
+$role=$_SESSION["role"];
 ?>
 <!DOCTYPE html>
-    <html>
-    	<head>
-			<title>Admin</title>
+<html>
+	<head>
+		<title>Admin</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
@@ -140,14 +111,12 @@ body{
   background: #24292e !important;
 }
 </style>
-		</head>
-    	<body>
-	    	<div id="particles-js">
-		<canvas class="particles-js-canvas-el"  style="width: 100%; height: 100%;"></canvas>
-			<script type="text/javascript" src="particles.js"></script>
-			<script type="text/javascript" src="app.js"></script>
-		</div>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	</head>	
+	<body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   			<a class="navbar-brand" href="admin.php" style='font-size: 28px'>Administrator</a>
   			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
     		<span class="navbar-toggler-icon"></span>
@@ -155,7 +124,7 @@ body{
   			<div class="navbar-collapse collapse show" id="navbarColor01" style="">
     			<ul class="navbar-nav mr-auto">
      				<li class="nav-item active">
-        				<a class="nav-link" href="admin.php" style='font-size: 20px'>Home <span class="sr-only">(current)</span></a>
+        				<a class="nav-link" href="displayadmin.php" style='font-size: 20px'>Home <span class="sr-only">(current)</span></a>
       				</li>
 				    <li class="nav-item">
 				        <a class="nav-link" href="about.php" style='font-size: 20px'>About</a>
@@ -168,10 +137,23 @@ body{
 		</nav>
 <br>
 <br>
+
 <section id="main">
   <div class = "container">
     <div class="row">
-          <div class="col-md-3">
+         <!-- <div class="col-md-3">
+		            <div class="list-group">
+		              <a href="faculty.php" class="list-group-item active main-color-bg">
+		                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
+		              </a>
+		                  	<form action="display.php" method="post">
+
+		              <a href="export.php" class="list-group-item"><span class="glyphicon glyphicon-th-list"  name="export" value="export" aria-hidden="true"> Export<span class="badge"></span></a>
+		            	
+		            </form>
+		    		</div>
+					</div>-->
+					 <div class="col-md-3">
 		            <div class="list-group">
 		              <a href="admin.php" class="list-group-item active main-color-bg">
 		                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
@@ -181,37 +163,71 @@ body{
 		              <a href="allocate.php" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Allocate Courses <span class="badge"></span></a>
 		              <a href="remove.php" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Delete Allocation <span class="badge"></span></a>
 		              <a href="displayadmin.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Display Allocation<span class="badge"></span></a>
-		            		
+		              <a href="export.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Export<span class="badge"></span></a>		
 		    		</div>
 					</div>
-		 
+    	<form action="displayadmin.php" method="post">
+    	<select name='option1' id='option1' >
+	    <?php 
+	    
+	   
+	    $sql="SELECT NAME FROM course order by ID";   
+	    
+	    echo "<label for='option1'>COURSE :</label>"; 
+        echo"<option value= >None</option>";
+        foreach ($conn->query($sql) as $row)
+        {
+        echo "<option name=$row[NAME] value=$row[NAME]>$row[NAME]</option>"; 
+        }
+        echo "</select>";
+        ?>
+        </select>
+        <input type="submit" name="search" value="Go" class="btn btn-primary">
+        <button input type="submit" name="submit" value="submit" class="btn btn-primary">Show All</button><br><br>
+        <?php
+							
+				if(isset($_POST['search']))
+				{
+				    $valueToSearch = $_POST['option1'];
+				    $_SESSION["x"]=$valueToSearch;
+				    $x=implode("",$_POST);
+				    $query = "SELECT * FROM allotment WHERE CNAME='$valueToSearch'ORDER BY CID";
+				    $search_result = filterTable($query);
+				    $result=$conn->query($query);
+				    $_SESSION["x"]=$search_result;
+			        echo"<table class='table table-hover' border=5>";
+			        echo"<tr><td><b>FNAME</b></td><td><b>MNAME</b></td><td><b>LNAME</b></td><td><b>RNO</b></td><td><b>EMAILID</b></td><td><b>CID</b></td><td><b>CNAME<b></td></tr>";$i=0;
+			        while ($row = $result->fetch_assoc())
+			        {
+			            echo"<tr class='table-dark'><td>{$row['FNAME']}</td><td>{$row['MNAME']}</td><td>{$row['LNAME']}</td><td>{$row['RNO']}</td><td>{$row['EMAILID']}</td><td>{$row['CID']}</td><td>{$row['CNAME']}</td></tr>";
+			        }
+			        echo"</table>";
+		    	}
+				else if(isset($_POST['submit']))
+				{
+			        $query="SELECT * FROM allotment ORDER BY CID ASC";
+			        $result = mysqli_query($conn,$query);
+			        echo"<table class='table table-hover' border=5>";
+			        echo"<tr><td>FNAME</td><td>MNAME</td><td>LNAME</td><td>RNO</td><td>EMAILID</td><td>CID</td><td>CNAME</td></tr>";
+			        while ($row = $result->fetch_assoc())
+			        {
+			            echo"<tr class='table-dark'><td>{$row['FNAME']}</td><td>{$row['MNAME']}</td><td>{$row['LNAME']}</td><td>{$row['RNO']}</td><td>{$row['EMAILID']}</td><td>{$row['CID']}</td><td>{$row['CNAME']}</td></tr>";
+			        }
+			        echo"</table>";
+				}
+			
+			
 
 
-				<div class="col-md-9">
-				<div class="panel panel-default">
-			          <div class="panel-heading main-color-bg">
-			            <h3 class="panel-title">You are logged in as<b> <?php  print $email;?></b></h3>
-			          </div>
-			          <div class="panel-body">
-			            <div class="col-md-9">
-			              	<?php if($msg != ''): ?>
-							<div class="alert <?php echo $msgClass; ?>"><?php echo $msg; ?></div>
-							<?php endif; ?>
-			                <h2><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Name: <b>Vaibhav Vasani</b></h2>
-		                	<h3><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Role: <b>Admin</b>
-			                </h3>
-			                <h3><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> Department: <b>LMS - KJSCE</b>
-			                </h3>
-			            </div>
-			        </div>
-			    </div>
-			    </div>
-    </div> 
- </div>
-</section>
-<footer id="footer" style="background-color:#24292e ">
-      <p>Copyright KJSCE Audit, &copy; 2019</p>
-</footer>
-		
-    </body>
-</html>			
+			function filterTable($query)
+			{
+		    $connect = mysqli_connect("localhost", "root", "123456", "audit_course");
+		    $filter_Result = mysqli_query($connect, $query);
+		    return $filter_Result;
+			}
+
+		?>
+		</form>
+	</body>
+</html>
+

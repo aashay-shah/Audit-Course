@@ -1,30 +1,14 @@
 <?php
-    $msg = "";
-	$msgClass = "";
-    require ("database.php");
-	session_start();
-	$sql="SELECT * FROM hod WHERE EMAILID ='{$_SESSION['email']}'";
-    $result = $conn->query($sql);
-    while ($row = $result->fetch_assoc()) 
-    {
-        $email= $row['EMAILID'];
-        $dept=$row['DEPT']; 
-        $_SESSION['dept']=$row['DEPT'];
-    }
-	$query="SELECT NAME,ID FROM course WHERE DEPT='$dept'";
-    $result = mysqli_query($conn,$query);
-    $i=0;
-    while($row = mysqli_fetch_array($result))
-    {   
-        $id[$i]=$row['ID'];
-        $courses[$i]=$row['NAME'];
-        $i++;
-    }
+require("database.php");
+mysqli_select_db($conn,"audit_course");
+session_start();
+$email=$_SESSION["email"];
+$role=$_SESSION["role"];
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>HOD</title>
+	<head>
+		<title>HOD</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/cyborg/bootstrap.min.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700i" rel="stylesheet">
@@ -122,19 +106,17 @@ body{
 
 #particles-js{
   position: absolute;
-  height:450px;
+  height:375px;
   width:100%;
   background: #24292e !important;
 }
 </style>
-    </head> 
-    <body>
-        <div id="particles-js">
-        <canvas class="particles-js-canvas-el"  style="width: 100%; height: 100%;"></canvas>
-            <script type="text/javascript" src="particles.js"></script>
-            <script type="text/javascript" src="app.js"></script>
-        </div>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	</head>	
+	<body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="hod.php" style='font-size: 28px'>Head of Department</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -155,47 +137,102 @@ body{
         </nav>
 <br>
 <br>
-        <section id="main">
-            <div class = "container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <div class="list-group">
-                            <a href="hod.php" class="list-group-item active main-color-bg">
+
+<section id="main">
+  <div class = "container">
+    <div class="row">
+          <div class="col-md-3">
+		            <div class="list-group">
+		              <a href="hod.php" class="list-group-item active main-color-bg">
                                 <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Dashboard
                             </a>
                             <a href="hod.php" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true" class="active"></span> Profile <span class="badge"></span></a>
-                            <a href="#" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Display Departmental Courses<span class="badge"></span></a>
-                            <a href="displayhod.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Display Allocated Courses<span class="badge"></span></a>      
-                        </div>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="panel panel-default">
-                            <div class="panel-heading main-color-bg">
-                                <h3 class="panel-title">You are logged in as<b> <?php  print $email;?></b></h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="col-md-9">
-                                    <h3><span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span> 
-                                        Audit Courses :</h3><h4> <b> <?php $i="1";
-                                        echo "<br>";
-                                        echo "&nbsp&nbsp&nbsp Code&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspName";
-                                        echo "<br><br>";
-                                        foreach($courses as $c)
-                                        {
-                                            echo $i.". ".$id[$i-1]." : ".$c."<br><br>";
-                                            $i++;            
-                                        }
-                                        ?></b>
-                                    </h4>
-                                </div>  
-                            </div>
-                        </div>
-                    </div>
-                </div> 
-            </div>
-        </section>
-        <footer id="footer" style="background-color: #24292e">
-            <p>Copyright KJSCE Audit, &copy; 2019</p>
-        </footer>   
-    </body>
+                            <a href="dep_course.php" class="list-group-item"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Display Departmental Courses<span class="badge"></span></a>
+                            <a href="displayhod.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Display Allocated Courses<span class="badge"></span></a>
+		                  	<form action="displayhod.php" method="post">
+
+		              <a href="export.php" class="list-group-item"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> Export<span class="badge"></span></a>
+		            	
+		            </form>
+		    		</div>
+					</div>
+					<body>
+    	<form action="displayhod.php" method="post">
+    	<select name='option1' id='option1' >
+	    <?php 
+	    if($role=="hod")
+	    
+	    $depthod=$_SESSION["dept"];
+	    $sql="SELECT NAME FROM course WHERE DEPT='$depthod' order by ID";
+		
+	    
+	     echo"</table>";
+
+	
+        echo "<label for='option1'>COURSE :</label>"; 
+        echo"<option value= >None</option>";
+        foreach ($conn->query($sql) as $row)
+        {
+        echo "<option name=$row[NAME] value=$row[NAME]>$row[NAME]</option>"; 
+        }
+        echo "</select>";
+        ?>
+        </select>
+        <input type="submit" name="search" value="Go" class="btn btn-primary">
+        <button input type="submit" name="submit" value="submit" class="btn btn-primary">Show All</button><br><br>
+        <?php
+			
+		        if(isset($_POST['search']))
+		        {
+				    $valueToSearch = $_POST['option1'];
+				    $_SESSION["x"]=$valueToSearch;
+				    $x=implode("",$_POST);
+				    $query = "SELECT * FROM allotment WHERE CNAME='$valueToSearch'";
+				    $search_result = filterTable($query);
+				    $result=$conn->query($query);
+				    $_SESSION["x"]=$search_result;
+			        echo"<table class='table table-hover' border=5>";
+			        echo"<tr><td><b>FNAME</b></td><td><b>MNAME</b></td><td><b>LNAME</b></td><td><b>RNO</b></td><td><b>EMAILID</b></td><td><b>CID</b></td><td><b>CNAME<b></td></tr>";$i=0;
+			        while ($row = $result->fetch_assoc())
+			        {
+			            echo"<tr class='table-dark'><td>{$row['FNAME']}</td><td>{$row['MNAME']}</td><td>{$row['LNAME']}</td><td>{$row['RNO']}</td><td>{$row['EMAILID']}</td><td>{$row['CID']}</td><td>{$row['CNAME']}</td></tr>";
+			        }
+			        echo"</table>";
+		    	}
+		 		else if(isset($_POST['submit']))
+		 		{
+			     	$sql="SELECT NAME FROM course WHERE dept='$depthod'";
+			    	$result = mysqli_query($conn,$sql);
+			    	$i=0;
+			    	while($row = mysqli_fetch_array($result))
+			    	{
+			    	$courses[$i]=$row['NAME'];
+			    	$i++;
+			    	}
+			    	foreach($courses as $c)
+			    	{
+			            echo"<h4 style='color: white'>$c</h4>";
+			            echo"<br>";
+			            $query="SELECT * FROM allotment where CNAME='$c'";
+			            $result = mysqli_query($conn,$query);
+			            echo"<table class='table table-hover' border=5>";
+			            echo"<tr><td><b>FNAME</b></td><td><b>MNAME</b></td><td><b>LNAME</b></td><td><b>RNO</b></td><td><b>EMAILID</b></td><td><b>CID</b></td><td><b>CNAME<b></td></tr>";
+				        while ($row = $result->fetch_assoc())
+				        {
+				            echo"<tr class='table-dark'><td>{$row['FNAME']}</td><td>{$row['MNAME']}</td><td>{$row['LNAME']}</td><td>{$row['RNO']}</td><td>{$row['EMAILID']}</td><td>{$row['CID']}</td><td>{$row['CNAME']}</td></tr>";
+				        }
+				        echo"</table>";
+				        echo"<br>";
+			        }
+		   		}
+			function filterTable($query)
+			{
+		    $connect = mysqli_connect("localhost", "root", "123456", "audit_course");
+		    $filter_Result = mysqli_query($connect, $query);
+		    return $filter_Result;
+			}
+		?>
+		</form>
+	</body>
 </html>
+
